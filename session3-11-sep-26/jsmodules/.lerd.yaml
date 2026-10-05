@@ -1,0 +1,4 @@
+domains:
+  - jsmodules
+php_version: "8.5"
+secured: true

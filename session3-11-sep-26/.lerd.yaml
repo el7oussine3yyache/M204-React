@@ -1,0 +1,4 @@
+domains:
+  - session3-11-sep-26
+php_version: "8.5"
+secured: true
