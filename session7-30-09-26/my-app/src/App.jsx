@@ -1,5 +1,6 @@
 import Aside from "./Aside"
 import Content from "./Content"
+import Footer from "./Footer"
 import Header from "./Header"
 export default function App({ etudiants }) {
   return (
@@ -10,6 +11,7 @@ export default function App({ etudiants }) {
         <Aside />
         <Content etudiants={etudiants} />
       </div>
+      <Footer etudiants={etudiants} />
     </>
   )
 }

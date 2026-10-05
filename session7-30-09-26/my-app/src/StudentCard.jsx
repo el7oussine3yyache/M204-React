@@ -10,7 +10,7 @@ export default function StudentCard({ id, nom, note, onDelete, onUpdate }) {
   /*const [editNom, setEditNom] = useState(nom);
   const [editNote, setEditNote] = useState(note); */
 
-  const [oEtudiant, setoEtudiant] = useState({id: id, nom: nom, note: note})
+  const [oEtudiant, setoEtudiant] = useState({ id: id, nom: nom, note: note })
 
   const handleSave = (e) => {
     e.preventDefault();
@@ -46,7 +46,7 @@ export default function StudentCard({ id, nom, note, onDelete, onUpdate }) {
             <input
               type="text"
               value={oEtudiant.nom}
-              onChange={(e) => setoEtudiant({...oEtudiant,nom: e.target.value})}
+              onChange={(e) => setoEtudiant({ ...oEtudiant, nom: e.target.value })}
               className="w-full border px-2 py-1 text-sm rounded focus:outline-none focus:ring-1 focus:ring-blue-500"
               required
             />
@@ -58,7 +58,7 @@ export default function StudentCard({ id, nom, note, onDelete, onUpdate }) {
               min="0"
               max="20"
               value={oEtudiant.note}
-              onChange={(e) => setoEtudiant({...oEtudiant,note: e.target.value})}
+              onChange={(e) => setoEtudiant({ ...oEtudiant, note: e.target.value })}
               className="w-full border px-2 py-1 text-sm rounded focus:outline-none focus:ring-1 focus:ring-blue-500"
               required
             />
@@ -100,7 +100,11 @@ export default function StudentCard({ id, nom, note, onDelete, onUpdate }) {
               Modifier
             </button>
             <button
-              onClick={() => onDelete(oEtudiant.id)}
+              onClick={() => {
+                if (window.confirm("are you sure you wanna delete? Proceed with caution!!")) {
+                  onDelete(oEtudiant.id);
+                }
+              }}
               className="flex-1 px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 text-sm font-medium rounded-md transition-colors text-center"
             >
               Supprimer
