@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Les routes en React — Support de cours</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#cbd5e1;color:#0f172a;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}code,pre{font-family:"JetBrains Mono",Consolas,monospace}.page{width:210mm;height:297mm;margin:15mm auto;background:#fff;position:relative;overflow:hidden;padding:16mm 18mm 22mm;border-radius:10px;box-shadow:0 24px 55px rgba(15,23,42,.2);page-break-after:always}.page:last-child{page-break-after:auto}.code{border:1px solid #cbd5e1;border-left:4px solid #4f46e5;border-radius:14px;overflow:hidden;background:#f8fafc}.code .head{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:#f1f5f9;border-bottom:1px solid #e2e8f0;font-size:10px;color:#64748b;font-weight:700}.code pre{margin:0;padding:14px 16px;white-space:pre;overflow-x:auto;font-size:10.5px;line-height:1.55}.badge{position:absolute;right:18mm;top:12mm;padding:7px 11px;border-radius:999px;background:#eef2ff;color:#4338ca;border:1px solid #c7d2fe;font-size:9px;text-transform:uppercase;letter-spacing:.14em;font-weight:900}.lead{font-size:13px;line-height:1.65;color:#64748b;max-width:620px;margin:8px 0 20px}.note{margin-top:18px;padding:15px 17px;border-radius:15px;background:#eef2ff;border:1px solid #c7d2fe;color:#3730a3}.note p{margin:5px 0 0;font-size:11px;line-height:1.55}.card{border:1px solid #e2e8f0;border-radius:16px;padding:16px;background:#fff}.flow{display:flex;align-items:center;justify-content:center;gap:10px;padding:18px;border-radius:16px;background:#0f172a;color:#fff}.flow span{padding:9px 12px;border-radius:10px;background:#1e293b;font-size:10px;font-weight:800}.flow i{font-style:normal;color:#818cf8}footer{position:absolute;left:18mm;right:18mm;bottom:6mm;border-top:1px solid #e2e8f0;padding-top:4mm;display:grid;grid-template-columns:1fr 60px 1fr;font-size:9px;text-transform:uppercase;letter-spacing:.08em;font-weight:700;color:#94a3b8}footer span:nth-child(2){text-align:center}footer span:last-child{text-align:right}@page{size:A4 portrait;margin:0}@media print{html,body{width:210mm;background:#fff}.page{margin:0!important;width:210mm!important;height:297mm!important;border-radius:0!important;box-shadow:none!important;break-after:page!important;page-break-after:always!important}.page:last-child{break-after:auto!important;page-break-after:auto!important}*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}}
+</style>
+</head>
+<body>
+
+<section class="page">
+  <div class="text-[10px] uppercase tracking-[.22em] font-black text-indigo-600">M204 · React</div>
+  <div class="mt-16">
+    <h1 class="text-5xl leading-[1.02] font-black tracking-tight">Les routes<br><span class="text-indigo-600">en React</span></h1>
+    <p class="mt-5 text-[15px] leading-7 text-slate-600 max-w-xl">Créer une application multi-écrans sans recharger la page avec React Router.</p>
+  </div>
+  <div class="mt-10 grid grid-cols-[1fr_auto_1.2fr_auto_1.45fr] gap-3 items-center">
+    <div class="card bg-slate-50"><div class="text-[9px] font-black text-slate-400 uppercase">URL</div><div class="font-mono font-bold text-indigo-600 mt-2">/</div><div class="text-xs mt-1">Accueil</div></div>
+    <div class="text-indigo-500 font-black">→</div>
+    <div class="card bg-slate-50"><div class="text-[9px] font-black text-slate-400 uppercase">URL</div><div class="font-mono font-bold text-indigo-600 mt-2">/etudiants</div><div class="text-xs mt-1">Liste</div></div>
+    <div class="text-indigo-500 font-black">→</div>
+    <div class="card bg-slate-50"><div class="text-[9px] font-black text-slate-400 uppercase">URL</div><div class="font-mono font-bold text-indigo-600 mt-2">/etudiants/12</div><div class="text-xs mt-1">Détail</div></div>
+  </div>
+  <div class="mt-8 rounded-2xl border-l-4 border-emerald-500 bg-emerald-50 p-5">
+    <div class="text-sm font-black text-emerald-900">Objectif</div>
+    <p class="mt-2 text-[12px] leading-5 text-emerald-900">Configurer les routes, naviguer avec <code>Link</code> / <code>NavLink</code>, récupérer un paramètre avec <code>useParams</code> et naviguer par code avec <code>useNavigate</code>.</p>
+  </div>
+  <div class="mt-8 flex flex-wrap gap-2"><span class="px-3 py-2 rounded-full border text-[10px] font-mono">BrowserRouter</span><span class="px-3 py-2 rounded-full border text-[10px] font-mono">Routes</span><span class="px-3 py-2 rounded-full border text-[10px] font-mono">Route</span><span class="px-3 py-2 rounded-full border text-[10px] font-mono">Link</span><span class="px-3 py-2 rounded-full border text-[10px] font-mono">useParams</span><span class="px-3 py-2 rounded-full border text-[10px] font-mono">useNavigate</span></div>
+  <footer><span>Formateur : Amine LEGDANI</span><span>01</span><span>DDOWFS201 · 202 · 204</span></footer>
+</section>
+
+<section class="page">
+  <div class="badge">01 · Comprendre</div>
+  <div class="text-[10px] uppercase tracking-[.2em] font-black text-indigo-400">React Router</div>
+  <h2 class="mt-2 text-3xl font-black tracking-tight">Pourquoi des routes ?</h2>
+  <p class="lead">Une SPA change d’écran sans recharger entièrement le document HTML.</p>
+  <div class="grid grid-cols-2 gap-5 mt-6">
+    <div class="card bg-rose-50 border-rose-200"><div class="text-[10px] uppercase tracking-wider font-black text-rose-600">Site classique</div><h3 class="font-black mt-2">Lien → nouvelle page</h3><p class="text-[11px] leading-5 text-rose-900 mt-2">Le navigateur demande une nouvelle page au serveur.</p></div>
+    <div class="card bg-emerald-50 border-emerald-200"><div class="text-[10px] uppercase tracking-wider font-black text-emerald-600">React + Router</div><h3 class="font-black mt-2">URL → composant</h3><p class="text-[11px] leading-5 text-emerald-900 mt-2">Le router détecte l’URL et affiche le composant correspondant.</p></div>
+  </div>
+  <h3 class="mt-8 text-lg font-black">Modèle mental</h3>
+  <div class="mt-4 space-y-3">
+    <div class="card grid grid-cols-[180px_40px_1fr] items-center text-xs"><code class="text-indigo-600 font-bold">/</code><span>→</span><b>&lt;Accueil /&gt;</b></div>
+    <div class="card grid grid-cols-[180px_40px_1fr] items-center text-xs"><code class="text-indigo-600 font-bold">/etudiants</code><span>→</span><b>&lt;Etudiants /&gt;</b></div>
+    <div class="card grid grid-cols-[180px_40px_1fr] items-center text-xs"><code class="text-indigo-600 font-bold">/etudiants/5</code><span>→</span><b>&lt;DetailEtudiant /&gt;</b></div>
+  </div>
+  <div class="note"><b>À retenir</b><p>Une route associe une <strong>URL</strong> à un <strong>composant React</strong>.</p></div>
+  <footer><span>Formateur : Amine LEGDANI</span><span>02</span><span>DDOWFS201 · 202 · 204</span></footer>
+</section>
+
+<section class="page">
+  <div class="badge">02 · Installation</div>
+  <div class="text-[10px] uppercase tracking-[.2em] font-black text-indigo-400">Mise en place</div>
+  <h2 class="mt-2 text-3xl font-black tracking-tight">Installer et activer le router</h2>
+  <p class="lead">Le support suit le mode déclaratif actuel de React Router.</p>
+  <div class="code mt-5"><div class="head"><span>Terminal</span><b>INSTALLATION</b></div><pre>npm i react-router</pre></div>
+  <h3 class="mt-7 text-lg font-black">main.jsx</h3>
+  <div class="code mt-3"><div class="head"><span>main.jsx</span><b>CONFIGURATION</b></div><pre>import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router";
+import App from "./App.jsx";
+
+createRoot(document.getElementById("root")).render(
+  &lt;StrictMode&gt;
+    &lt;BrowserRouter&gt;
+      &lt;App /&gt;
+    &lt;/BrowserRouter&gt;
+  &lt;/StrictMode&gt;
+);</pre></div>
+  <div class="flow mt-7"><span>BrowserRouter</span><i>contient</i><span>App</span><i>contient</i><span>Routes</span></div>
+  <div class="note"><b>BrowserRouter</b><p>Il fournit le contexte de navigation et s’appuie sur l’historique du navigateur pour gérer les URL côté client.</p></div>
+  <footer><span>Formateur : Amine LEGDANI</span><span>03</span><span>DDOWFS201 · 202 · 204</span></footer>
+</section>
+
+<section class="page">
+  <div class="badge">03 · Déclarer</div>
+  <div class="text-[10px] uppercase tracking-[.2em] font-black text-indigo-400">Routes et Route</div>
+  <h2 class="mt-2 text-3xl font-black tracking-tight">Associer une URL à un composant</h2>
+  <p class="lead"><code>Routes</code> regroupe les routes. Chaque <code>Route</code> possède un <code>path</code> et un <code>element</code>.</p>
+  <div class="code"><div class="head"><span>App.jsx</span><b>ROUTES</b></div><pre>import { Routes, Route } from "react-router";
+import Accueil from "./pages/Accueil";
+import Etudiants from "./pages/Etudiants";
+import Contact from "./pages/Contact";
+
+function App() {
+  return (
+    &lt;Routes&gt;
+      &lt;Route path="/" element={&lt;Accueil /&gt;} /&gt;
+      &lt;Route path="/etudiants" element={&lt;Etudiants /&gt;} /&gt;
+      &lt;Route path="/contact" element={&lt;Contact /&gt;} /&gt;
+    &lt;/Routes&gt;
+  );
+}</pre></div>
+  <div class="grid grid-cols-2 gap-5 mt-6">
+    <div class="card"><div class="text-[10px] uppercase font-black text-slate-400">path</div><code class="block mt-2 text-indigo-600 font-bold">"/etudiants"</code><p class="text-[11px] text-slate-600 mt-2">L’URL à reconnaître.</p></div>
+    <div class="card"><div class="text-[10px] uppercase font-black text-slate-400">element</div><code class="block mt-2 text-indigo-600 font-bold">&lt;Etudiants /&gt;</code><p class="text-[11px] text-slate-600 mt-2">Le composant à afficher.</p></div>
+  </div>
+  <div class="note"><b>Modèle mental</b><p>URL actuelle → le router cherche une route → il affiche le composant correspondant.</p></div>
+  <footer><span>Formateur : Amine LEGDANI</span><span>04</span><span>DDOWFS201 · 202 · 204</span></footer>
+</section>
+
+<section class="page">
+  <div class="badge">04 · Naviguer</div>
+  <div class="text-[10px] uppercase tracking-[.2em] font-black text-indigo-400">Link et NavLink</div>
+  <h2 class="mt-2 text-3xl font-black tracking-tight">Changer de route sans recharger</h2>
+  <p class="lead">Pour la navigation interne de l’application, utilisez les composants du router.</p>
+  <div class="grid grid-cols-2 gap-5">
+    <div class="card bg-rose-50 border-rose-200"><div class="text-[10px] uppercase font-black text-rose-600">À éviter ici</div><code class="block mt-3 text-[11px]">&lt;a href="/etudiants"&gt;Étudiants&lt;/a&gt;</code><p class="text-[11px] mt-3 text-rose-900">Peut déclencher un rechargement complet.</p></div>
+    <div class="card bg-emerald-50 border-emerald-200"><div class="text-[10px] uppercase font-black text-emerald-600">À utiliser</div><code class="block mt-3 text-[11px]">&lt;Link to="/etudiants"&gt;Étudiants&lt;/Link&gt;</code><p class="text-[11px] mt-3 text-emerald-900">Navigation côté client.</p></div>
+  </div>
+  <div class="code mt-6"><div class="head"><span>Menu.jsx</span><b>NAVIGATION</b></div><pre>import { Link, NavLink } from "react-router";
+
+function Menu() {
+  return (
+    &lt;nav&gt;
+      &lt;Link to="/"&gt;Accueil&lt;/Link&gt;
+
+      &lt;NavLink
+        to="/etudiants"
+        className={({ isActive }) =&gt;
+          isActive ? "active" : ""
+        }
+      &gt;
+        Étudiants
+      &lt;/NavLink&gt;
+    &lt;/nav&gt;
+  );
+}</pre></div>
+  <div class="note"><b>Link ou NavLink ?</b><p><code>Link</code> navigue. <code>NavLink</code> navigue et permet de styliser facilement le lien actif.</p></div>
+  <footer><span>Formateur : Amine LEGDANI</span><span>05</span><span>DDOWFS201 · 202 · 204</span></footer>
+</section>
+
+<section class="page">
+  <div class="badge">05 · Paramètres</div>
+  <div class="text-[10px] uppercase tracking-[.2em] font-black text-indigo-400">Route dynamique</div>
+  <h2 class="mt-2 text-3xl font-black tracking-tight">Récupérer un id avec useParams</h2>
+  <p class="lead">Une partie de l’URL peut devenir une valeur utilisable dans le composant.</p>
+  <div class="flow mb-6"><span>/etudiants/12</span><i>→</i><span>:id</span><i>→</i><span>id = "12"</span></div>
+  <div class="code"><div class="head"><span>App.jsx</span><b>DYNAMIC ROUTE</b></div><pre>&lt;Routes&gt;
+  &lt;Route path="/etudiants" element={&lt;Etudiants /&gt;} /&gt;
+  &lt;Route path="/etudiants/:id" element={&lt;DetailEtudiant /&gt;} /&gt;
+&lt;/Routes&gt;</pre></div>
+  <div class="code mt-5"><div class="head"><span>DetailEtudiant.jsx</span><b>useParams</b></div><pre>import { useParams } from "react-router";
+
+function DetailEtudiant() {
+  const { id } = useParams();
+
+  return (
+    &lt;h2&gt;Détail de l’étudiant n° {id}&lt;/h2&gt;
+  );
+}</pre></div>
+  <div class="note"><b>À retenir</b><p><code>:id</code> est un segment dynamique. <code>useParams()</code> renvoie les paramètres capturés dans l’URL.</p></div>
+  <footer><span>Formateur : Amine LEGDANI</span><span>06</span><span>DDOWFS201 · 202 · 204</span></footer>
+</section>
+
+<section class="page">
+  <div class="badge">06 · Navigation par code</div>
+  <div class="text-[10px] uppercase tracking-[.2em] font-black text-indigo-400">useNavigate</div>
+  <h2 class="mt-2 text-3xl font-black tracking-tight">Naviguer après une action</h2>
+  <p class="lead">Après un ajout, une connexion ou une validation, on peut changer de route depuis le code.</p>
+  <div class="code"><div class="head"><span>AjouterEtudiant.jsx</span><b>useNavigate</b></div><pre>import { useNavigate } from "react-router";
+
+function AjouterEtudiant() {
+  const navigate = useNavigate();
+
+  function ajouter() {
+    // enregistrer l’étudiant
+
+    navigate("/etudiants");
+  }
+
+  return (
+    &lt;button onClick={ajouter}&gt;
+      Enregistrer
+    &lt;/button&gt;
+  );
+}</pre></div>
+  <div class="flow mt-7"><span>Enregistrer</span><i>→</i><span>ajouter()</span><i>→</i><span>navigate()</span><i>→</i><span>/etudiants</span></div>
+  <div class="note"><b>Règle simple</b><p>Pour un lien visible : <code>Link</code>. Pour naviguer après une action dans le code : <code>useNavigate()</code>.</p></div>
+  <h3 class="mt-8 text-lg font-black">Route inexistante</h3>
+  <div class="code mt-3"><div class="head"><span>App.jsx</span><b>404</b></div><pre>&lt;Route path="*" element={&lt;NotFound /&gt;} /&gt;</pre></div>
+  <p class="mt-3 text-[11px] text-slate-600">Le caractère <code>*</code> sert de route de secours lorsque les autres routes ne correspondent pas.</p>
+  <footer><span>Formateur : Amine LEGDANI</span><span>07</span><span>DDOWFS201 · 202 · 204</span></footer>
+</section>
+
+<section class="page">
+  <div class="badge">07 · Layout</div>
+  <div class="text-[10px] uppercase tracking-[.2em] font-black text-indigo-400">Routes imbriquées</div>
+  <h2 class="mt-2 text-3xl font-black tracking-tight">Layout et Outlet</h2>
+  <p class="lead">Un layout permet de conserver un menu ou un header commun à plusieurs pages.</p>
+  <div class="code"><div class="head"><span>App.jsx</span><b>NESTED ROUTES</b></div><pre>&lt;Routes&gt;
+  &lt;Route path="/" element={&lt;Layout /&gt;}&gt;
+    &lt;Route index element={&lt;Accueil /&gt;} /&gt;
+    &lt;Route path="etudiants" element={&lt;Etudiants /&gt;} /&gt;
+    &lt;Route path="contact" element={&lt;Contact /&gt;} /&gt;
+  &lt;/Route&gt;
+&lt;/Routes&gt;</pre></div>
+  <div class="code mt-5"><div class="head"><span>Layout.jsx</span><b>OUTLET</b></div><pre>import { Link, Outlet } from "react-router";
+
+function Layout() {
+  return (
+    &lt;&gt;
+      &lt;nav&gt;
+        &lt;Link to="/"&gt;Accueil&lt;/Link&gt;
+        &lt;Link to="/etudiants"&gt;Étudiants&lt;/Link&gt;
+      &lt;/nav&gt;
+
+      &lt;main&gt;
+        &lt;Outlet /&gt;
+      &lt;/main&gt;
+    &lt;/&gt;
+  );
+}</pre></div>
+  <div class="mt-6 rounded-2xl overflow-hidden border"><div class="bg-slate-900 text-white p-4 text-xs font-black">MENU COMMUN</div><div class="bg-slate-50 p-10 text-center"><code class="font-black text-indigo-600">&lt;Outlet /&gt;</code><p class="text-[11px] text-slate-500 mt-2">La page active s’affiche ici</p></div></div>
+  <footer><span>Formateur : Amine LEGDANI</span><span>08</span><span>DDOWFS201 · 202 · 204</span></footer>
+</section>
+
+<section class="page">
+  <div class="badge">08 · Synthèse</div>
+  <div class="text-[10px] uppercase tracking-[.2em] font-black text-indigo-400">À retenir</div>
+  <h2 class="mt-2 text-3xl font-black tracking-tight">La boîte à outils du routing</h2>
+  <p class="lead">Associez chaque élément à une seule responsabilité.</p>
+  <div class="grid grid-cols-2 gap-3 mt-5">
+    <div class="card"><code class="text-indigo-600 font-black">BrowserRouter</code><p class="text-[10px] mt-2 text-slate-600">Active le contexte de navigation.</p></div>
+    <div class="card"><code class="text-indigo-600 font-black">Routes / Route</code><p class="text-[10px] mt-2 text-slate-600">Définissent les URL et composants.</p></div>
+    <div class="card"><code class="text-indigo-600 font-black">Link</code><p class="text-[10px] mt-2 text-slate-600">Navigue vers une route.</p></div>
+    <div class="card"><code class="text-indigo-600 font-black">NavLink</code><p class="text-[10px] mt-2 text-slate-600">Navigation + état actif.</p></div>
+    <div class="card"><code class="text-indigo-600 font-black">useParams()</code><p class="text-[10px] mt-2 text-slate-600">Lit les paramètres dynamiques.</p></div>
+    <div class="card"><code class="text-indigo-600 font-black">useNavigate()</code><p class="text-[10px] mt-2 text-slate-600">Navigue depuis le code.</p></div>
+    <div class="card"><code class="text-indigo-600 font-black">Outlet</code><p class="text-[10px] mt-2 text-slate-600">Affiche une route enfant.</p></div>
+    <div class="card"><code class="text-indigo-600 font-black">*</code><p class="text-[10px] mt-2 text-slate-600">Gère les routes non reconnues.</p></div>
+  </div>
+  <div class="flow mt-7"><span>URL</span><i>→</i><span>Route</span><i>→</i><span>Composant</span></div>
+  <h3 class="mt-7 text-lg font-black">Mini-TP</h3>
+  <div class="mt-3 space-y-2 text-[11px]">
+    <div class="card"><b class="text-indigo-600">Q1.</b> Créer les pages Accueil, Étudiants et Contact.</div>
+    <div class="card"><b class="text-indigo-600">Q2.</b> Déclarer les routes correspondantes.</div>
+    <div class="card"><b class="text-indigo-600">Q3.</b> Ajouter un menu avec <code>NavLink</code>.</div>
+    <div class="card"><b class="text-indigo-600">Q4.</b> Créer <code>/etudiants/:id</code> et afficher l’id avec <code>useParams()</code>.</div>
+    <div class="card"><b class="text-indigo-600">Q5.</b> Ajouter une page 404.</div>
+  </div>
+  <div class="mt-6 rounded-2xl border-l-4 border-emerald-500 bg-emerald-50 p-4 text-[11px] text-emerald-900"><b>Phrase clé :</b> React Router fait correspondre l’URL actuelle avec le composant React à afficher.</div>
+  <footer><span>Formateur : Amine LEGDANI</span><span>09</span><span>DDOWFS201 · 202 · 204</span></footer>
+</section>
+
+</body>
+</html>
